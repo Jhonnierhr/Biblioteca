@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Biblioteca.Models.Prestamo>
+
+@{
+    ViewData["Title"] = "Préstamos";
+}
+
+<h1>Préstamos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear nuevo préstamo</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Libro</th>
+            <th>Usuario</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var prestamo in Model)
+        {
+            <tr>
+                <td>@prestamo._idPrestamo</td>
+                <td>@prestamo.Libro?._titulo</td>
+                <td>@prestamo.Usuario?._nombre</td>
+                <td>@prestamo._fechaInicio.ToString("dd/MM/yyyy")</td>
+                <td>@prestamo._fechaFin.ToString("dd/MM/yyyy")</td>
+                <td>                    
+                    <a asp-action="Edit" asp-route-id="@prestamo._idPrestamo" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@prestamo._idPrestamo" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,74 @@
+﻿@model Biblioteca.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Crear Préstamo";
+    var libros = ViewData["Libros"] as List<Biblioteca.Models.Libro>;
+    var usuarios = ViewData["Usuarios"] as List<Biblioteca.Models.Usuario>;
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Crear Préstamo</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label for="_idLibro" class="form-label">Libro</label>
+                            <select asp-for="_idLibro" class="form-select" required>
+                                <option value="">Seleccione un libro</option>
+                                @if (libros != null)
+                                {
+                                    foreach (var libro in libros)
+                                    {
+                                        <option value="@libro._idLibro">@libro._titulo</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="_idLibro" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="_idUsuario" class="form-label">Usuario</label>
+                            <select asp-for="_idUsuario" class="form-select" required>
+                                <option value="">Seleccione un usuario</option>
+                                @if (usuarios != null)
+                                {
+                                    foreach (var usuario in usuarios)
+                                    {
+                                        <option value="@usuario._idUsario">@usuario._nombre</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="_idUsuario" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="_fechaInicio" class="form-label"></label>
+                                <input asp-for="_fechaInicio" class="form-control" type="date" />
+                                <span asp-validation-for="_fechaInicio" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="_fechaFin" class="form-label"></label>
+                                <input asp-for="_fechaFin" class="form-control" type="date" />
+                                <span asp-validation-for="_fechaFin" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-3">
+                            <input type="submit" value="Crear" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Volver</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

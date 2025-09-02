@@ -1,0 +1,36 @@
+﻿@model Biblioteca.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h1>Editar Usuario</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="_idUsario" />
+    <div class="form-group">
+        <label asp-for="_nombre" class="control-label"></label>
+        <input asp-for="_nombre" class="form-control" />
+        <span asp-validation-for="_nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="_direccion" class="control-label"></label>
+        <input asp-for="_direccion" class="form-control" />
+        <span asp-validation-for="_direccion" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="_numeroTelefono" class="control-label"></label>
+        <input asp-for="_numeroTelefono" class="form-control" />
+        <span asp-validation-for="_numeroTelefono" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

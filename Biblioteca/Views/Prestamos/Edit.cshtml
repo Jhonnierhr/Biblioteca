@@ -1,0 +1,59 @@
+﻿@model Biblioteca.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Editar Préstamo";
+    var libros = ViewData["Libros"] as List<Biblioteca.Models.Libro>;
+    var usuarios = ViewData["Usuarios"] as List<Biblioteca.Models.Usuario>;
+}
+
+<h1>Editar Préstamo</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="_idPrestamo" />
+    <div class="form-group">
+        <label for="_idLibro" class="control-label">Libro</label>
+        <select asp-for="_idLibro" class="form-control" required>
+            <option value="">Seleccione un libro</option>
+            @if (libros != null)
+            {
+                foreach (var libro in libros)
+                {
+                    <option value="@libro._idLibro" selected="@(libro._idLibro == Model._idLibro ? "selected" : null)">@libro._titulo</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="_idLibro" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="_idUsuario" class="control-label">Usuario</label>
+        <select asp-for="_idUsuario" class="form-control" required>
+            <option value="">Seleccione un usuario</option>
+            @if (usuarios != null)
+            {
+                foreach (var usuario in usuarios)
+                {
+                    <option value="@usuario._idUsario" selected="@(usuario._idUsario == Model._idUsuario ? "selected" : null)">@usuario._nombre</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="_idUsuario" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="_fechaInicio" class="control-label"></label>
+        <input asp-for="_fechaInicio" class="form-control" type="date" />
+        <span asp-validation-for="_fechaInicio" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="_fechaFin" class="control-label"></label>
+        <input asp-for="_fechaFin" class="form-control" type="date" />
+        <span asp-validation-for="_fechaFin" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
